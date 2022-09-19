@@ -3,6 +3,22 @@ from re import findall,sub
 
 from typing import List
 
+class Expression:
+    def __init__(self,a1:float ,a2:float ,b1:float , b2:float):
+        """
+            ax+b is an expression
+            a1x + b1 = a2x + b2
+            (a1-a2)x = b2-b1 - perfomr a swap
+            x = (b2-b1)/(a1-a2)
+        """
+        self.a1 = a1
+        self.a2 = a2
+        self.b1 = b1
+        self.b2 = b2
+
+        def swap(self)->None:
+            pass
+
 class Equation:
     #init method or costructor 
     def __init__(self,lhs:str, rhs:str):
@@ -26,10 +42,11 @@ class Equation:
         
         print(left_coef+" "+consts_lelf+ " = "+right_coef+" "+consts_right)
         
-
-       
-        self.setLeft(str(eval(left_coef.replace("x","")))+"x"+self.digits_toString(consts_lelf))
-        self.setRight(str(eval(right_coef.replace("x","")))+"x"+self.digits_toString(consts_right))
+        try:
+            self.setLeft(str(eval(left_coef.replace("x","")))+"x"+self.digits_toString(consts_lelf))
+            self.setRight(str(eval(right_coef.replace("x","")))+"x"+self.digits_toString(consts_right))
+        except SyntaxError:
+            pass
     
         self.toString()
 
@@ -44,8 +61,12 @@ class Equation:
     def setRight(self,newVal:str)->None:
         self.rhs = newVal
 
-    def toString(self):
+    def toString(self)->None:
         print("Simplify")
+        a1 = findall("[-+][0-9]+",self.lhs)
+        a2 = findall('[-+][0-9]+',self.rhs)
+       
+       
         print(self.lhs+" = "+self.rhs)
 
         
@@ -67,7 +88,7 @@ class Equation:
 
 
 #eq = input("Enter a linear equation:\n")
-eq = "7x-3 +5x + 2x -x+7+3-4-9+10-25x  = 3x - 5 +2x+3"
+eq = "7x-3=5"
 
 eq = eq.replace(" ","")
 
