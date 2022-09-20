@@ -4,7 +4,7 @@ from re import findall,sub
 from typing import List
 
 class Expression:
-    def __init__(self,a1:float ,a2:float ,b1:float , b2:float):
+    def __init__(self,a1:int ,b1:int ,a2:int , b2:int):
         """
             ax+b is an expression
             a1x + b1 = a2x + b2
@@ -16,8 +16,32 @@ class Expression:
         self.b1 = b1
         self.b2 = b2
 
-        def swap(self)->None:
-            pass
+
+      # Case 1 ax + b  = c
+    def Eliminiate(self)->None:
+
+        """
+            Remove the constant factor 
+        """
+        if self.b1 < 0:
+            print(f'Add {abs(self.b1)} to both sides')
+            lft = f'{self.a1}x - {abs(self.b1)} + {abs(self.b1)} = '
+            rht = f'{self.b2} + {abs(self.b1)}'
+            print(lft+rht)
+            print("Simplify")
+            print(f'{self.a1}x = {self.b2+abs(self.b1)}')
+
+        elif self.b1 >0:
+            print(f'Subtract {self.b1} from both sides')
+            lft = f'{self.a1}x + {self.b1} - {self.b1} = '
+            rht = f'{self.b2} - {self.b1}'
+            print(lft+rht)
+            print("Simplify")
+            print(f'{self.a1}x = {self.b2-self.b1}')
+
+        
+
+            
 
 class Equation:
     #init method or costructor 
@@ -61,11 +85,12 @@ class Equation:
     def setRight(self,newVal:str)->None:
         self.rhs = newVal
 
-    def toString(self)->None:
+    def toString(self):
         print("Simplify")
         a1 = findall("[-+][0-9]+",self.lhs)
         a2 = findall('[-+][0-9]+',self.rhs)
-       
+
+        print(self.lhs.split("x"))
        
         print(self.lhs+" = "+self.rhs)
 
@@ -88,17 +113,11 @@ class Equation:
 
 
 #eq = input("Enter a linear equation:\n")
-eq = "7x-3=5"
 
-eq = eq.replace(" ","")
 
-sides = eq.split("=")
+eq1 = Expression(7,-3,0,5)
+eq1.Eliminiate()
 
-lhs ,rhs= sides[0], sides[1]
-
-object = Equation(lhs,rhs)
-
-object.Grouping()
 
 
 
