@@ -1,4 +1,4 @@
-# Absoluver Flask Backend
+# FoondaMate-Coding-Challenge
 
 The backend flask app is an api that allows get requests with equation as params and send bank a json data with steps of solving the equation.
 
