@@ -7,11 +7,21 @@ class Expression:
         self.lhs = lhs 
         self.rhs = rhs
 
-    def Grouping(self)->None:
-        print("Grouping!!!")
+    def Grouping(self)->str:
+        
 
+        # for case where there's a positive leading constant on either side append the '+'
+        if self.modify_const(self.lhs) != None:
+                self.setLeft(self.modify_const(self.lhs))
+        if self.modify_const(self.rhs) != None:
+                self.setRight(self.modify_const(self.rhs))
+
+       
         if self.hasParethesis(self.lhs):
+
             # remove all brackets on the left 
+            print('Distribute - left ')
+            print(self.lhs, end=" = ")
             var = findall(r'[-+]?[0-9]+\(.+?\)',self.lhs)
             var2= findall(r'[-+]?[0-9]+\(.+?\)',self.lhs)
 
@@ -20,10 +30,14 @@ class Expression:
             for i in range(len(lst)):
                 self.lhs=self.lhs.replace(var2[i],lst[i])
                 self.setLeft(self.lhs)
-               
+            print(self.lhs)
+        
+        print() 
 
         if self.hasParethesis(self.rhs):
             #remove the right
+            print('Disribute - right')
+            print(self.rhs, end=" = ")
             var = findall(r'[-+]?[0-9]+\(.+?\)',self.rhs)
             var2= findall(r'[-+]?[0-9]+\(.+?\)',self.rhs)
 
@@ -32,13 +46,17 @@ class Expression:
             for i in range(len(lst)):
                 self.rhs=self.rhs.replace(var2[i],lst[i])
                 self.setRight(self.rhs)
-         
-        
-        
+            print(self.rhs)
+
+        print()
+        print(self.lhs,self.rhs, sep=' = ')
+
+
         unkwon_vars_left = findall(r"[-+]?[0-9]*x",self.lhs) # find list with pattern
         unkwon_vars_right = findall(r"[-+]?[0-9]*x",self.rhs)
 
         consts_lelf =  sub(r"[-+]?[0-9]*x","",self.lhs) # replace 
+     
         consts_right = sub(r"[-+]?[0-9]*x","",self.rhs) # replace 
 
 
@@ -49,16 +67,31 @@ class Expression:
 
         left_coef = "".join(unkwon_vars_left)
         right_coef = "".join(unkwon_vars_right)
+
+        print(right_coef)
         
         print(left_coef+" "+consts_lelf+ " = "+right_coef+" "+consts_right)
-        
+ 
         try:
-            self.setLeft(str(eval(left_coef.replace("x","")))+"x"+self.digits_toString(consts_lelf))
-            self.setRight(str(eval(right_coef.replace("x","")))+"x"+self.digits_toString(consts_right))
+            # e.g 3x+2x-3x = 10x+4
+            if consts_lelf == "":
+                self.setLeft(str(eval(left_coef.replace("x","")))+"x")
+                
+            else:
+                self.setLeft(str(eval(left_coef.replace("x","")))+"x"+self.digits_toString(consts_lelf))
+            if consts_right =="":
+                self.setRight(str(eval(right_coef.replace("x","")))+"x")
+            else:
+                self.setRight(str(eval(right_coef.replace("x","")))+"x"+self.digits_toString(consts_right))
+            
+            
+                
         except SyntaxError:
             pass
     
         self.toString()
+
+        return self.getLeft()+"="+self.getRight()
 
     def digits_toString(self,value:str)->str:
         try:
@@ -86,6 +119,7 @@ class Expression:
 
 
     def toString(self)->None:
+
         print("Simplify")
         print(self.getLeft()+" = "+self.getRight())
 
@@ -101,14 +135,36 @@ class Expression:
                 arr[i]="-1x"
         return arr
 
-    def hasParethesis(self,expession:str)->bool:
+    def modify_const(self,side:str):
         try:
-            return True if (expession.index(')')!=-1 or expession.index('(') !=-1) else False
+            if eval(side[0])>0 and side.index('x')!=-1:
+                side = "+"+side 
+                return side
+            return side
+        except SyntaxError:
+            pass
+        except NameError:
+            pass
         except ValueError:
             pass
 
+    def hasParethesis(self,expression:str)->bool:
+        print("The value to test",expression)
+        try:
+         
+            if expression.index(')')!=-1 and expression.index('(')!=-1:
+                return True
+        except ValueError:
+            return False
+        except AttributeError:
+            pass
+
+    def getSign(self,string:str)->int:
+        for index,item in enumerate(string):
+            if item =='-' or item =='+' and index>0:
+                return index
+
     def Expand(self,exp:List[str])->List[str]:
-        print("Expand - Distribute ")
         
         for index,item in enumerate(exp):
             
@@ -132,11 +188,17 @@ class Expression:
             x_coeff=x_coeff.replace('x','')
             # get the constant 
             try:
-                const = item[item.index('x')+1:item.index(')')]
-                ans1 = eval(const)
                 
-                ans = eval(lst)*eval(x_coeff)
+                
+                try:
+                    const = item[item.index('x')+1:item.index(')')]
+                    ans1 = eval(const)
+                except SyntaxError:
+                    const = item[item.index('(')+1:self.getSign(item)]
+                    ans1 = eval(const)
+          
 
+                ans = eval(lst)*eval(x_coeff)
                 if ans >0 :
                     ans ="+"+str(ans)
                 
