@@ -1,0 +1,123 @@
+{
+    "test_cases": [{
+            "test_number": 1,
+            "test_case": "basic",
+            "test_input": "x = 4",
+            "expected_output": "x=4.00"
+        },
+        {
+            "test_number": 2,
+            "test_case": "basic",
+            "test_input": "x - 2 = 6",
+            "expected_output": "x=8.00"
+        },
+        {
+            "test_number": 3,
+            "test_case": "basic",
+            "test_input": "x = 6 + 5",
+            "expected_output": "x=11.00"
+        },
+        {
+            "test_number": 4,
+            "test_case": "basic",
+            "test_input": "-2x - 2 = 8",
+            "expected_output": "x=-5.00"
+        },
+        {
+            "test_number": 5,
+            "test_case": "basic",
+            "test_input": "2x - 2 = 20",
+            "expected_output": "x=11.00"
+        },
+        {
+            "test_number": 6,
+            "test_case": "simple",
+            "test_input": "2x - 2 = 4",
+            "expected_output": "x=3.00"
+        },
+        {
+            "test_number": 7,
+            "test_case": "simple",
+            "test_input": "6 + 10x - 2 = 40",
+            "expected_output": "x=3.60"
+        },
+        {
+            "test_number": 8,
+            "test_case": "simple",
+            "test_input": "6x + 2 + 26 = 4x + x",
+            "expected_output": "x=-28.00"
+        },
+        {
+            "test_number": 9,
+            "test_case": "simple",
+            "test_input": "15x - 5 = 0",
+            "expected_output": "x=0.33"
+        },
+        {
+            "test_number": 10,
+            "test_case": "simple",
+            "test_input": "72x - 22 = 1-50x",
+            "expected_output": "x=0.19"
+        },
+        {
+            "test_number": 11,
+            "test_case": "complex",
+            "test_input": "7(x - 2)= -x-8",
+            "expected_output": "x=0.75"
+        },
+        {
+            "test_number": 12,
+            "test_case": "simple",
+            "test_input": "7x - 2(x+2) = 21",
+            "expected_output": "x=5.00"
+        },
+        {
+            "test_number": 13,
+            "test_case": "simple",
+            "test_input": "7x +6x = -x+3x",
+            "expected_output": "x=0.00"
+        },
+        {
+            "test_number": 14,
+            "test_case": "simple",
+            "test_input": "5 - 2x = 21",
+            "expected_output": "x=-8.00"
+        },
+        {
+            "test_number": 15,
+            "test_case": "simple",
+            "test_input": "7x - 2x = 25",
+            "expected_output": "x=5.00"
+        },
+        {
+            "test_number": 16,
+            "test_case": "simple",
+            "test_input": "7x - 2 = 21",
+            "expected_output": "x=3.29"
+        },
+        {
+            "test_number": 17,
+            "test_case": "more coplex",
+            "test_input": "5(2x - 2) = 21+x+2+3x-6x+9",
+            "expected_output": "x=3.50"
+        },
+        {
+            "test_number": 18,
+            "test_case": "simple",
+            "test_input": "7x - 2 = 21",
+            "expected_output": "x=3.29"
+        },
+        {
+            "test_number": 19,
+            "test_case": "complex",
+            "test_input": "2(x+3)+5(x-3) = 21+2(x-3)",
+            "expected_output": "x=4.80"
+        },
+        {
+            "test_number": 20,
+            "test_case": "complex",
+            "test_input": "2(4x + 3) + 6 = 24 -4x",
+            "expected_output": "x=1.00"
+        }
+    ]
+}
