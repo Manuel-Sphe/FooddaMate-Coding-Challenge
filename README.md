@@ -1,10 +1,19 @@
 # FoondaMate-Coding-Challenge
 
-The backend flask app is an api that allows get requests with equation as params and send bank a json data with steps of solving the equation.
+App Command Line Inteface Python Solution For Solving Linear Equations of type ax+b = dx+e 
 
-Move to the backend directory and run the following commands:
+Open a Command Line(Terminal on UNIX, CMD on Windows- can use the Subsys for Linux Terminal) clone this repo 
+```
+$git clone https://github.com/Manuel-Sphe/FooddaMate-Coding-Challenge.git
+```
+Go To the Project's Directory
+```
+$ cd FooddaMate-Coding-Challenge
+```
 
-## Creating a virtual environment (Windows)
+
+
+## Creating a virtual environment (Windows) so that you can run the correct python version
 
 Initialiaze the environment folder:
 ```
@@ -36,10 +45,20 @@ $ . venv/bin/activate
 
 ## Running the backend
 
-Run the following command:
+Run the following command to try solve an equation of your choice:
 
 ```
 $ python3 Solution.py
+```
+
+To run Intergration Tests
+```
+$python3 Intergration_test.py
+```
+
+To run the Unit Tests
+```
+$python3 Unit_test.py
 ```
 
 
