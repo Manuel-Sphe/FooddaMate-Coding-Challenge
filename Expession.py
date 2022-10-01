@@ -25,11 +25,13 @@ class Expression:
             var = findall(r'[-+]?[0-9]+\(.+?\)',self.lhs)
             var2= findall(r'[-+]?[0-9]+\(.+?\)',self.lhs)
 
+           
             lst = self.Expand(var)
 
             for i in range(len(lst)):
                 self.lhs=self.lhs.replace(var2[i],lst[i])
                 self.setLeft(self.lhs)
+            
             print(self.lhs)
         
         print() 
@@ -40,7 +42,8 @@ class Expression:
             print(self.rhs, end=" = ")
             var = findall(r'[-+]?[0-9]+\(.+?\)',self.rhs)
             var2= findall(r'[-+]?[0-9]+\(.+?\)',self.rhs)
-
+            
+            
             lst = self.Expand(var)
 
             for i in range(len(lst)):
@@ -68,7 +71,7 @@ class Expression:
         left_coef = "".join(unkwon_vars_left)
         right_coef = "".join(unkwon_vars_right)
 
-        print(right_coef)
+        
         
         print(left_coef+" "+consts_lelf+ " = "+right_coef+" "+consts_right)
  
@@ -94,6 +97,9 @@ class Expression:
         return self.getLeft()+"="+self.getRight()
 
     def digits_toString(self,value:str)->str:
+        """
+        convert the integers to string with an appropiate leading sign e.g 3 becomes +3 
+        """
         try:
             if eval(value)>=0:
                 return "+"+str(eval(value))
@@ -126,7 +132,7 @@ class Expression:
         
     def modify(self,arr:List[str])->List[str]:
         """
-         This method handle the case where there an +x and -x
+         This method handle the case where there an +x and -x and add a leading 1
         """
         for i,val in enumerate(arr):
             if val=="+x" or val=="x":
@@ -136,6 +142,9 @@ class Expression:
         return arr
 
     def modify_const(self,side:str):
+        '''
+            this appends a leading sign on a leading constant e.g 2+x becomes +2+x
+        '''
         try:
             if eval(side[0])>0 and side.index('x')!=-1:
                 side = "+"+side 
@@ -149,7 +158,9 @@ class Expression:
             pass
 
     def hasParethesis(self,expression:str)->bool:
-        print("The value to test",expression)
+        '''
+            Checks for brackets in an expression 
+        '''
         try:
          
             if expression.index(')')!=-1 and expression.index('(')!=-1:
@@ -160,12 +171,17 @@ class Expression:
             pass
 
     def getSign(self,string:str)->int:
+        """
+            finds the index of a sign in between ax+b expression
+        """
         for index,item in enumerate(string):
             if item =='-' or item =='+' and index>0:
                 return index
 
     def Expand(self,exp:List[str])->List[str]:
-        
+        '''
+            Removes the brackes in an expression
+        '''
         for index,item in enumerate(exp):
             
             lst = search(r'[-+]?[0-9]+',item) #get the x coffients
@@ -215,4 +231,5 @@ class Expression:
 
             except ValueError:
                 pass
+      
         return exp
